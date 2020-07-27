@@ -1,0 +1,59 @@
+#配置接口
+server:
+  port: 8764
+  servlet:
+    jsp:
+      init-parameters:
+        # 开启jsp页面的热部署
+        development: true
+spring:
+  # SpringMVC 静态资源路径
+  #resources:
+   # static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+    static-path-pattern: /**
+  #配置数据源
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/security?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+  
+
+#配置JWT
+jwt:
+  # 密钥KEY
+  secret: JWTSecret
+  # HeaderKEY
+  tokenHeader: Authorization
+  # token前缀字符
+  tokenPrefix: Sans-
+  # 过期时间 单位秒 一天后过期=86400 七天后过期=604800
+  expiration: 86400
+  # 配置不需要认证的接口
+  antMatchers: /index,/login/**,/favicon.ico,classpath:webapp/static/**,/webjars/**
+
+# myBatis-plu相关配置
+mybatis-plus:
+  # xml扫描，多个目录逗号或者分号隔开（告诉 Mapper 所对应的XML文件配置）
+  mapper-locations: classpath*:mappers/*.xml
+  # 一下配置均有默认值，可以不配置
+  global-config:
+    db-config:
+      # 主键类型 AUTO："数据库自增id" input："用户输入id" ID_WORKER:"全局唯一ID"(数字类型唯一ID)， UUID：全局唯一ID UUID；
+      id-type: auto
+      # 字段策略 IGNORED："忽略判断"  NOT_NUll:非null判断，NOT_EMPTY:"非空判断"
+      field-strategy: NOT_EMPTY
+      # 数据库类型
+      db-type: mysql
+  configuration:
+    # 是否自动开启驼峰命名法规则映射：从数据库列明到JAVA属性驼峰命名的类似映射
+    map-underscore-to-camel-case: true
+    # 返回map时true：当查询数据为空时时字段返回null；false：不加这个查询是数据为空时，字段将被隐藏
+    call-setters-on-nulls: true
+    # 这个配置会把执行的sql打印出来，用于并发或测试时侯使用
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
