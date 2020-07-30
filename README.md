@@ -4,3 +4,4 @@ SecurityConfig现在是直接使用的访问成功进入index页面，jsp页面�
 
 如果是静态资源页面拦截的话index页面也应该进不去的，但是aaa.html却引用不了，麻烦大佬了，您看一下。
 
+测试用的 lixinlei  密码 123456
