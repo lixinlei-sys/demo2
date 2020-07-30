@@ -88,7 +88,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("classpath:/static/**","classpath:/WEB-INF/jsp/**","classpath:/META-INF/resources/");
+        // "*.jpg","classpath:/static/**","classpath:/WEB-INF/jsp/**","classpath:/META-INF/resources/"
+        web.ignoring().antMatchers("/static/**","/WEB-INF/jsp/**");
     }
 
     /**
@@ -118,7 +119,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 // 不进行权限验证的请求或资源(从配置文件中读取)
                 .antMatchers(JWTConfig.antMatchers.split(",")).permitAll()
-                //.antMatchers("/index","/login/**","/favicon.ico","classpath:/META-INF/resources/**","classpath:/resources/**","classpath:/static/**","classpath:/public/").permitAll()
+                .antMatchers("/index").hasRole("USER")
+                //.antMatchers("/index","classpath:/webapp/static/**","/login/**","/favicon.ico","classpath:/META-INF/resources/**","classpath:/resources/**","classpath:/static/**","classpath:/public/").permitAll()
                 //.antMatchers("/index","/login/**","/favicon.ico").permitAll()
                 // 其他的需要登陆后才能访问
                 .anyRequest().authenticated()
@@ -128,16 +130,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 // 配置登录地址
                 .formLogin()
+                
+                //页面无法跳转  俩种方式：1.注释掉自定义登录成功处理类 2.在自定义处理类中response.senRedirect() 来重定向页面
                 // 默认登录页面
                 .loginPage("/login")
-                //.defaultSuccessUrl("/index") //访问指定页面，用户未登录，跳转至登入页面，如果登入成功，跳转至用户访问指定页面，用户访问登入页面，默认的跳转页面
                 .loginProcessingUrl("/login") //当发现是 /login时认为是登录，必须和表单提交地址一样
+                //.defaultSuccessUrl("/index") //访问指定页面，用户未登录，跳转至登入页面，如果登入成功，跳转至用户访问指定页面，用户访问登入页面，默认的跳转页面
                 .successForwardUrl("/index") //登入成功后跳转得页面
                 // 配置登录成功自定义处理类
-                .successHandler(userLoginSuccessHandler)
+                //.successHandler(userLoginSuccessHandler)
                 // 配置登录失败自定义处理类
                 .failureHandler(userLoginFailureHandler)
                 .and()
+                  
                 // 配置登出地址
                 .logout()
                 .logoutUrl("/login/userLogout")
@@ -154,6 +159,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable() //关闭csrf功能 类似于防火墙得功能
                 // 开启记住我功能 cookie：默认保存俩周
                 .rememberMe()
+                .and()
+                // frame 嵌套页面时使用
+                //       disable: 禁用
+                //       deny: 表示该页面不允许在frame中展示,即便是在相同得域名页面嵌套也不允许
+                //       sameOrigin: 表示该页面可以在相同域名页面下frame中展示
+                //       ALLOW-FROM https://example.com/ — 表示该页面可以在指定来源的 frame 中展示
+                .headers().frameOptions().disable();
         ;
 
         // 基于Token不需要session

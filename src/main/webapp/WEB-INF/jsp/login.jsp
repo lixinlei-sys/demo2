@@ -19,7 +19,14 @@
     <link rel="stylesheet" href="http://unpkg.com/iview/dist/styles/iview.css">
     <script type="text/javascript" src="http://v1.vuejs.org/js/vue.min.js"></script>
     <script type="text/javascript" src="http://unpkg.com/iview@1.0.1/dist/iview.min.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/axios/dist/axios.min.js"></script>
+   <%-- <script type="text/javascript" src="https://unpkg.com/axios/dist/axios.min.js"></script>
+   <script type="text/javascript" src="/webjars/moment/2.24.0/moment.js"></script>--%>
+
+    <%--<link rel="stylesheet" type="text/css" href="webjars/iview/3.4.0/dist/styles/iview.css">
+    <script type="text/javascript" src="webjars/iview/3.4.0/dist/iview.js"></script>
+    <script type="text/javascript" src="webjars/vue/2.6.10/dist/vue.js"></script>
+    <script type="text/javascript" src="webjars/axios/0.19.2/dist/axios.js"></script>
+    <script type="text/javascript" src="webjars/moment/2.24.0/moment.js"></script>--%>
 </head>
 <style>
     .card{
@@ -31,6 +38,19 @@
         width: 400px;
         text-align:center;
     }
+    .login-icon{
+        width: 160px;
+        height: 120px;
+        margin: 0px auto;
+        padding-bottom: 10px ;
+        /*margin-bottom: 20px;
+        margin: 5px 70px;*/
+        /*background-image: url("/static/img/login/app.jpg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size:100%;
+        background-attachment: fixed;*/
+    }
 </style>
 <body>
 <div id="root">
@@ -38,25 +58,17 @@
         <card style="background-color: rgba(213,213,213,0.16)" class="card" >
             <div class="temp">
                 <i-form style="padding:20px 20px"  action="/login" method="post">
-                    <%--<c:if test="${not empty loginErr}">
-                        <alert type="error" show-icon>${loginErr}</alert>
-                    </c:if>
-                        <div class="tx">
-                            <img :src="txx" alt="" class="txk">       &lt;%&ndash;头像要改为数据库的默认头像&ndash;%&gt;
-
-                            <p style="font-size: 18px;margin-left: 5px;color: whiteSmoke;">物业管理系统—登录</p>
-                        </div>--%>
-                    <div class="login-icon">
-                        <!--着里吗-->
-                      
-                    </div>
+                        <div class="login-icon">
+                            <!--着里吗-->
+                            <img class="img" src="static/img/login/app.jpg" style="width: 100%;height: 100%">
+                        </div>
                     <form-Item prop="user">
-                        <i-input sec:authentication="principal.username"  type="text"  placeholder="username"  name="username" v-model="name" @on-blur="a" @on-focus="empty">
+                        <i-input type="text"  placeholder="username"  name="username" v-model="name" @on-blur="a" @on-focus="empty">
                             <icon type="md-person" slot="prepend" size="20"></icon>
                         </i-input>
                     </form-Item>
                     <form-Item prop="password">
-                        <i-Input  sec:authentication="principal.password"  type="password" placeholder="password" name="password"  >
+                        <i-Input type="password" placeholder="password" name="password"  >
                             <Icon type="md-lock" slot="prepend"  size="20"></Icon>
                         </i-Input>
                     </form-Item>
@@ -67,8 +79,12 @@
     </div>
 </div>
 <script>
+    var lj="<%=request.getContextPath()%>>"
+</script>
+<script>
     new Vue({
-        el:"#root"
+        el: "#root",
+        data: {}
     })
 </script>
 </body>

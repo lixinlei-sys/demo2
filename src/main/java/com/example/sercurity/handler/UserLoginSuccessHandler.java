@@ -44,6 +44,7 @@ public class UserLoginSuccessHandler implements AuthenticationSuccessHandler {
         resultData.put("code",200);
         resultData.put("message","登录成功");
         resultData.put("token",token);
+        httpServletResponse.sendRedirect("/index");
         ResultUtil.responseJson(httpServletResponse,resultData);
         
         

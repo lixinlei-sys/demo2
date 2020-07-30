@@ -24,13 +24,13 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
      * @param id
      * @return
      */
-    List<SysRole> selectSysRoleByUserId(Integer id);
+    List<SysRole> selectSysRoleByUserId(Long id);
 
     /**
      * 通过用户id查询权限集合
      * @param id
      * @return
      */
-    List<SysMenu> selectSysMenuByUserId(Integer id);
+    List<SysMenu> selectSysMenuByUserId(Long id);
 
 }

@@ -40,7 +40,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      * @return
      */
     @Override
-    public List<SysRole> selectSysRoleByUserId(Integer id) {
+    public List<SysRole> selectSysRoleByUserId(Long id) {
         return this.baseMapper.selectSysRoleByUserId(id);
     }
 
@@ -50,7 +50,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      * @return
      */
     @Override
-    public List<SysMenu> selectSysMenuByUserId(Integer id) {
+    public List<SysMenu> selectSysMenuByUserId(Long id) {
         return this.baseMapper.selectSysMenuByUserId(id);
     }
 }

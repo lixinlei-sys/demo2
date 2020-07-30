@@ -35,7 +35,7 @@ jwt:
   # 过期时间 单位秒 一天后过期=86400 七天后过期=604800
   expiration: 86400
   # 配置不需要认证的接口
-  antMatchers: /index,/login/**,/favicon.ico,classpath:webapp/static/**,/webjars/**
+  antMatchers: /index,/login/**,/favicon.ico,classpath:webapp/static/**,/webjars/**,/aaa
 
 # myBatis-plu相关配置
 mybatis-plus:

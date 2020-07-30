@@ -30,12 +30,12 @@ public interface SysUserService extends IService<SysUser> {
      * @param id
      * @return
      */
-    List<SysRole> selectSysRoleByUserId(Integer id);
+    List<SysRole> selectSysRoleByUserId(Long id);
 
     /**
      * 根据用户id查询权限集合
      * @param id
      * @return
      */
-    List<SysMenu> selectSysMenuByUserId(Integer id);
+    List<SysMenu> selectSysMenuByUserId(Long id);
 }
